@@ -1,5 +1,9 @@
 # Minecraft Server Launcher (tmux)
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Unix-blue)](#)
+[![Shell](https://img.shields.io/badge/shell-Bash-yellow)](#)
+
 Скрипт для запуска одного или нескольких **Minecraft‑серверов внутри tmux‑сессии**. Основная задача — централизованный старт серверов при запуске системы и удобное управление ими через одну tmux‑сессию.
 
 ---
@@ -60,7 +64,7 @@
 
 ```
 minecraft-server-launcher/
-├── tmux_minecraft.sh          # основной скрипт запуска
+├── tmux_minecraft.sh         # основной скрипт запуска
 ├── tmux_minecraft_multi.sh   # вариант для нескольких серверов
 └── README.md
 ```

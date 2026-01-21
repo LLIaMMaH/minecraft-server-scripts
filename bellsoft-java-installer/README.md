@@ -1,5 +1,11 @@
 # BellSoft Java Installer
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Unix-blue)](#)
+[![Shell](https://img.shields.io/badge/shell-Bash-yellow)](#)
+[![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)](#)
+
+
 Инструмент для установки Java (Liberica JDK) от BellSoft с автоматическим получением актуальных версий и настройкой окружения.
 
 ---

@@ -3,6 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Unix-blue)](#)
 [![Shell](https://img.shields.io/badge/shell-Bash-yellow)](#)
+[![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)](#)
 
 ---
 
@@ -26,15 +27,16 @@
 
 ## Назначение репозитория
 
-Репозиторий содержит актуальные версии скриптов для управления Minecraft-серверами. В ряде подпроектов ранее использовавшиеся Bash-скрипты (`*.sh`) были заменены на более надёжные и расширяемые реализации на Python. Исключение составляет проект **minecraft-server-launcher**, где Bash и `tmux` остаются оптимальным решением, и Python не используется осознанно.
+Репозиторий содержит актуальные версии скриптов для управления Minecraft-серверами. В ряде подпроектов ранее использовавшиеся Bash-скрипты (`*.sh`) были заменены на более надёжные и расширяемые реализации на `Python`. Исключение составляет проект **minecraft-server-launcher**, где `Bash` и `tmux` остаются оптимальным решением, и Python не используется осознанно.
 
 
 
 Проект объединяет несколько независимых, но логически связанных инструментов:
 
-- автоматическая установка Java (Liberica JDK от BellSoft);
-- запуск Minecraft-серверов в изолированных `tmux`-сессиях;
 - архивирование и управление резервными копиями серверов.
+- автоматическая установка `Java` (Liberica JDK от BellSoft);
+- запуск Minecraft-серверов в изолированных `tmux`-сессиях;
+
 
 Каждый инструмент расположен в собственной директории и имеет отдельный `README.md` с подробным описанием.
 
@@ -44,9 +46,9 @@
 
 | Проект | Каталог | Описание |
 |------|--------|---------|
-| BellSoft Java Installer | `bellsoft-java-installer/` | Автоматическая установка Java от BellSoft с интерактивным выбором версии |
-| Minecraft Server Launcher | `minecraft-server-launcher/` | Запуск и управление серверами Minecraft в `tmux`-сессиях |
-| Archive Tool | `archive-tool/` | Архивирование серверов и управление резервными копиями |
+| Archive Tool | [`archive-tool/`](archive-tool/) | Архивирование серверов и управление резервными копиями |
+| BellSoft Java Installer | [`bellsoft-java-installer/`](bellsoft-java-installer/) | Автоматическая установка Java от BellSoft с интерактивным выбором версии |
+| Minecraft Server Launcher | [`minecraft-server-launcher/`](minecraft-server-launcher/) | Запуск и управление серверами Minecraft в `tmux`-сессиях |
 
 ---
 
@@ -62,11 +64,11 @@ cd minecraft-server-scripts
 2. Перейдите в каталог нужного инструмента:
 
 ```bash
+cd archive-tool
+# или
 cd bellsoft-java-installer
 # или
 cd minecraft-server-launcher
-# или
-cd archive-tool
 ```
 
 3. Ознакомьтесь с `README.md` выбранного проекта.

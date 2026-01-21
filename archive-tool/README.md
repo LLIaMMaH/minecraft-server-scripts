@@ -1,5 +1,10 @@
 # Archive Tool (GTNH Server)
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20Unix-blue)](#)
+[![Shell](https://img.shields.io/badge/shell-Bash-yellow)](#)
+[![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)](#)
+
 Инструмент для архивирования папок со **старыми серверными сборками модпака GT New Horizons (GTNH)**.
 
 Скрипт используется как разовая или редкая административная операция — в ситуациях, когда на сервере накопились неиспользуемые версии сборок и требуется освободить дисковое пространство путём их упаковки в архивы.
@@ -125,7 +130,6 @@ python3 archive_modpack.py
 - Инструмент не выполняет функции полноценного резервного копирования активного сервера.
 - Перед применением в рабочей среде рекомендуется тестировать скрипт на копии данных.
 
----
 
 * * *
 
