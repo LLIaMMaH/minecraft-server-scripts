@@ -911,6 +911,38 @@ class JavaInstaller:
             print_info("Установка отменена")
             return None
         
+        # Шаг 2.5: Выбор битности (только для x86)
+        selected_bitness = None
+        if selected_arch == 'x86':
+            bitness_options = ['64-bit (amd64/x64)', '32-bit (i386/x86)']
+            print_info(f"Получаю доступные варианты битности для {selected_os} {selected_arch}...")
+            
+            # Проверяем, какие битности доступны в API
+            available_bitnesses = set()
+            for item in self.api_data:
+                if item.get('os') == selected_os and item.get('architecture') == selected_arch:
+                    b = item.get('bitness')
+                    if b is not None:
+                        available_bitnesses.add(b)
+            
+            # Фильтруем опции по доступным битностям
+            filtered_options = []
+            for opt in bitness_options:
+                opt_bitness = 64 if '64' in opt else 32
+                if opt_bitness in available_bitnesses:
+                    filtered_options.append(opt)
+            
+            if not filtered_options:
+                filtered_options = bitness_options  # fallback
+            
+            selected_bitness_opt = select_option(f"Выберите битность для {selected_os} {selected_arch}:", filtered_options)
+            if not selected_bitness_opt:
+                print_info("Установка отменена")
+                return None
+            
+            selected_bitness = 64 if '64' in selected_bitness_opt else 32
+            print_info(f"Выбрана битность: {colorize(f'{selected_bitness}-bit', Colors.CYAN)}")
+        
         # Шаг 3: Выбор типа пакета
         print_info(f"Получаю список типов пакетов для {selected_os} {selected_arch}...")
         package_list = self.get_unique_values('packageType', 
@@ -1026,6 +1058,12 @@ class JavaInstaller:
                 item.get('featureVersion') == int(selected_version) and
                 item.get('bundleType') == selected_bundle):
                 
+                # Фильтруем по битности если выбрана
+                if selected_bitness is not None:
+                    item_bitness = item.get('bitness')
+                    if item_bitness is not None and item_bitness != selected_bitness:
+                        continue
+                
                 releases.append(item)
         
         if not releases:
@@ -1042,6 +1080,7 @@ class JavaInstaller:
             version = release.get('version', '')
             filename = release.get('filename', '')
             size = release.get('size', 0)
+            bitness = release.get('bitness', '?')
 
             # Статус релиза
             status = []
@@ -1054,10 +1093,11 @@ class JavaInstaller:
             # Форматируем строку с фиксированными ширинами
             version_str = colorize(f"{version:<15}", Colors.CYAN)
             size_str = colorize(f"{human_size(size):>10}", Colors.YELLOW)
+            bitness_str = colorize(f"{bitness}-bit", Colors.MAGENTA)
             file_str = colorize(filename, Colors.DIM)
 
             release_options.append(
-                f"{version_str} | {size_str} | {status_str} | {file_str}"
+                f"{version_str} | {bitness_str} | {size_str} | {status_str} | {file_str}"
             )
 
         selected_release_display = select_option("Выберите релиз:", release_options, trim_long_lines=False)
@@ -1082,6 +1122,8 @@ class JavaInstaller:
 
         print(f"{colorize('ОС:', Colors.BOLD)}           {colorize(selected_os, Colors.GREEN)}")
         print(f"{colorize('Архитектура:', Colors.BOLD)}  {colorize(selected_arch, Colors.GREEN)}")
+        if selected_bitness is not None:
+            print(f"{colorize('Битность:', Colors.BOLD)}     {colorize(f'{selected_bitness}-bit', Colors.CYAN)}")
         print(f"{colorize('Тип пакета:', Colors.BOLD)}   {colorize(selected_package, Colors.GREEN)}")
         print(f"{colorize('Версия Java:', Colors.BOLD)}  {colorize(f'Java {selected_version}', Colors.CYAN)}")
         print(f"{colorize('Тип бандла:', Colors.BOLD)}   {colorize(selected_bundle, Colors.GREEN)}")
@@ -1103,6 +1145,7 @@ class JavaInstaller:
         return {
             'os': selected_os,
             'arch': selected_arch,
+            'bitness': selected_bitness,
             'package_type': selected_package,
             'java_version': selected_version,
             'bundle_type': selected_bundle,
